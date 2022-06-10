@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Matthew Rudd &amp; Co." />
+
+<meta name="date" content="2022-06-10" />
+
+<title>CO2 Emissions Report</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Carter</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">CO2 Emissions Report</h1>
+<h4 class="author">Matthew Rudd &amp; Co.</h4>
+<h4 class="date">2022-06-10</h4>
+
+</div>
+
+
+<div id="globally" class="section level4">
+<h4>Globally</h4>
+<p><img src="EmissionsMarkdown_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="top-producing-co2-countries-throughout-history"
+class="section level3">
+<h3>Top Producing CO2 Countries Throughout History</h3>
+<p><img src="EmissionsMarkdown_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="EmissionsMarkdown_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="current-trends-in-emissions" class="section level4">
+<h4>Current Trends in Emissions</h4>
+<div id="by-region" class="section level6">
+<h6><em>by region</em></h6>
+<div id="htmlwidget-e6e01b76b392abba518e" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e6e01b76b392abba518e">{"x":{"data":[{"x":[1.21260532494634,1.33018918931484,0.754926965758205,0.686755045503378,0.699405848234892,1.37540660127997,0.737298128940165,1.19720425028354,0.656220093742013,1.29476778861135,1.17350210510194],"y":[1218084372.84323,1258600152.89609,1253115927.55395,1260382524.63168,1363497863.11648,1322663666.48989,1356691535.01269,1384281198.55763,1385545285.24553,1408467893.22108,1326156826.51232],"text":["Entity: Africa<br />Annual CO2 emissions (zero filled):  1218023292<br />Entity: Africa<br />Year: 2010","Entity: Africa<br />Annual CO2 emissions (zero filled):  1258708905<br />Entity: Africa<br />Year: 2011","Entity: Africa<br />Annual CO2 emissions (zero filled):  1253144211<br />Entity: Africa<br />Year: 2012","Entity: Africa<br />Annual CO2 emissions (zero filled):  1260316387<br />Entity: Africa<br />Year: 2013","Entity: Africa<br />Annual CO2 emissions (zero filled):  1363499747<br />Entity: Africa<br />Year: 2014","Entity: Africa<br />Annual CO2 emissions (zero filled):  1322735077<br />Entity: Africa<br />Year: 2015","Entity: Africa<br />Annual CO2 emissions (zero filled):  1356719492<br />Entity: Africa<br />Year: 2016","Entity: Africa<br />Annual CO2 emissions (zero filled):  1384372117<br />Entity: Africa<br />Year: 2017","Entity: Africa<br />Annual CO2 emissions (zero filled):  1385644894<br />Entity: Africa<br />Year: 2018","Entity: Africa<br />Annual CO2 emissions (zero filled):  1408478929<br />Entity: Africa<br />Year: 2019","Entity: Africa<br />Annual CO2 emissions (zero filled):  1326043539<br />Entity: Africa<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Africa","legendgroup":"Africa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.21691214777529,2.2165739428252,1.86508409362286,1.96179874371737,2.21067271567881,1.60443894471973,1.66922225803137,2.05581580996513,1.92401363626122,1.71338510345668,1.88244524989277],"y":[16530939905.3851,17746527532.1226,18456291640.5176,18714310404.0589,19018917456.6679,19135844014.2548,19218276763.1862,19653404909.321,20254328791.6477,20608599860.5219,20317042723.2101],"text":["Entity: Asia<br />Annual CO2 emissions (zero filled): 16530950685<br />Entity: Asia<br />Year: 2010","Entity: Asia<br />Annual CO2 emissions (zero filled): 17746631804<br />Entity: Asia<br />Year: 2011","Entity: Asia<br />Annual CO2 emissions (zero filled): 18456299828<br />Entity: Asia<br />Year: 2012","Entity: Asia<br />Annual CO2 emissions (zero filled): 18714335123<br />Entity: Asia<br />Year: 2013","Entity: Asia<br />Annual CO2 emissions (zero filled): 19018801891<br />Entity: Asia<br />Year: 2014","Entity: Asia<br />Annual CO2 emissions (zero filled): 19135910319<br />Entity: Asia<br />Year: 2015","Entity: Asia<br />Annual CO2 emissions (zero filled): 19218166352<br />Entity: Asia<br />Year: 2016","Entity: Asia<br />Annual CO2 emissions (zero filled): 19653512867<br />Entity: Asia<br />Year: 2017","Entity: Asia<br />Annual CO2 emissions (zero filled): 20254370026<br />Entity: Asia<br />Year: 2018","Entity: Asia<br />Annual CO2 emissions (zero filled): 20608592701<br />Entity: Asia<br />Year: 2019","Entity: Asia<br />Annual CO2 emissions (zero filled): 20317058379<br />Entity: Asia<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(183,159,0,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(183,159,0,1)"}},"hoveron":"points","name":"Asia","legendgroup":"Asia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2.67556941211224,2.90494360271841,2.85486294962466,3.12982118278742,2.84439024142921,3.02355619091541,2.78508520778269,3.26611716300249,3.01236027851701,2.88225681222975,2.60387622714043],"y":[6098565599.77875,6023687484.39533,5972132170.32034,5815652063.25124,5589710000.00355,5594356117.86883,5590141512.1764,5620243160.33356,5593053039.89902,5430144182.62893,4946032600.01615],"text":["Entity: Europe<br />Annual CO2 emissions (zero filled):  6098534908<br />Entity: Europe<br />Year: 2010","Entity: Europe<br />Annual CO2 emissions (zero filled):  6023668149<br />Entity: Europe<br />Year: 2011","Entity: Europe<br />Annual CO2 emissions (zero filled):  5972231655<br />Entity: Europe<br />Year: 2012","Entity: Europe<br />Annual CO2 emissions (zero filled):  5815574828<br />Entity: Europe<br />Year: 2013","Entity: Europe<br />Annual CO2 emissions (zero filled):  5589757324<br />Entity: Europe<br />Year: 2014","Entity: Europe<br />Annual CO2 emissions (zero filled):  5594384221<br />Entity: Europe<br />Year: 2015","Entity: Europe<br />Annual CO2 emissions (zero filled):  5590252902<br />Entity: Europe<br />Year: 2016","Entity: Europe<br />Annual CO2 emissions (zero filled):  5620306625<br />Entity: Europe<br />Year: 2017","Entity: Europe<br />Annual CO2 emissions (zero filled):  5593057381<br />Entity: Europe<br />Year: 2018","Entity: Europe<br />Annual CO2 emissions (zero filled):  5430238970<br />Entity: Europe<br />Year: 2019","Entity: Europe<br />Annual CO2 emissions (zero filled):  4946034489<br />Entity: Europe<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"Europe","legendgroup":"Europe","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.08410489093512,3.77897402327508,4.12433125190437,4.27105532120913,4.19976748693734,4.02657788358629,3.92129386980087,4.00589357092977,4.16136666405946,3.69776594415307,4.1706193331629],"y":[6875865124.89532,6771683183.52765,6580197875.67819,6714867795.71556,6753858812.46391,6612597652.79038,6471258934.49632,6413077897.53688,6588609155.47535,6460686305.95334,5775201967.15021],"text":["Entity: North America<br />Annual CO2 emissions (zero filled):  6875767079<br />Entity: North America<br />Year: 2010","Entity: North America<br />Annual CO2 emissions (zero filled):  6771607912<br />Entity: North America<br />Year: 2011","Entity: North America<br />Annual CO2 emissions (zero filled):  6580282771<br />Entity: North America<br />Year: 2012","Entity: North America<br />Annual CO2 emissions (zero filled):  6714923529<br />Entity: North America<br />Year: 2013","Entity: North America<br />Annual CO2 emissions (zero filled):  6753942686<br />Entity: North America<br />Year: 2014","Entity: North America<br />Annual CO2 emissions (zero filled):  6612704117<br />Entity: North America<br />Year: 2015","Entity: North America<br />Annual CO2 emissions (zero filled):  6471359556<br />Entity: North America<br />Year: 2016","Entity: North America<br />Annual CO2 emissions (zero filled):  6412981891<br />Entity: North America<br />Year: 2017","Entity: North America<br />Annual CO2 emissions (zero filled):  6588629908<br />Entity: North America<br />Year: 2018","Entity: North America<br />Annual CO2 emissions (zero filled):  6460726238<br />Entity: North America<br />Year: 2019","Entity: North America<br />Annual CO2 emissions (zero filled):  5775158655<br />Entity: North America<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"North America","legendgroup":"North America","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5.13202958554029,4.65049216803163,5.27133861053735,4.90212178397924,4.9876930873841,4.75311078839004,5.38308232277632,4.9961594555527,4.96544539686292,5.21874127779156,5.33837450649589],"y":[451225027.568368,451900119.230905,450769151.533087,441122545.083407,449131320.555822,454044928.893606,465647942.356481,466010060.52013,467806354.028078,471266807.093376,444616718.530786],"text":["Entity: Oceania<br />Annual CO2 emissions (zero filled):   451189137<br />Entity: Oceania<br />Year: 2010","Entity: Oceania<br />Annual CO2 emissions (zero filled):   451908773<br />Entity: Oceania<br />Year: 2011","Entity: Oceania<br />Annual CO2 emissions (zero filled):   450679901<br />Entity: Oceania<br />Year: 2012","Entity: Oceania<br />Annual CO2 emissions (zero filled):   441040275<br />Entity: Oceania<br />Year: 2013","Entity: Oceania<br />Annual CO2 emissions (zero filled):   449238205<br />Entity: Oceania<br />Year: 2014","Entity: Oceania<br />Annual CO2 emissions (zero filled):   454010038<br />Entity: Oceania<br />Year: 2015","Entity: Oceania<br />Annual CO2 emissions (zero filled):   465735657<br />Entity: Oceania<br />Year: 2016","Entity: Oceania<br />Annual CO2 emissions (zero filled):   466026027<br />Entity: Oceania<br />Year: 2017","Entity: Oceania<br />Annual CO2 emissions (zero filled):   467724583<br />Entity: Oceania<br />Year: 2018","Entity: Oceania<br />Annual CO2 emissions (zero filled):   471189339<br />Entity: Oceania<br />Year: 2019","Entity: Oceania<br />Annual CO2 emissions (zero filled):   444571198<br />Entity: Oceania<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"Oceania","legendgroup":"Oceania","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5.92322100065649,6.29155931435525,5.93896713294089,5.943926637806,5.76667834427208,5.86285687945783,5.93536187633872,5.6066100442782,5.80548597667366,6.1085661098361,5.84748410843313],"y":[1082357803.35267,1104024631.84169,1159584055.11567,1218749067.41128,1230461900.88244,1204915446.55054,1164861805.61283,1156671222.8962,1091362333.91435,1065544817.0363,994076795.551986],"text":["Entity: South America<br />Annual CO2 emissions (zero filled):  1082415226<br />Entity: South America<br />Year: 2010","Entity: South America<br />Annual CO2 emissions (zero filled):  1103963494<br />Entity: South America<br />Year: 2011","Entity: South America<br />Annual CO2 emissions (zero filled):  1159699662<br />Entity: South America<br />Year: 2012","Entity: South America<br />Annual CO2 emissions (zero filled):  1218740221<br />Entity: South America<br />Year: 2013","Entity: South America<br />Annual CO2 emissions (zero filled):  1230511065<br />Entity: South America<br />Year: 2014","Entity: South America<br />Annual CO2 emissions (zero filled):  1204961439<br />Entity: South America<br />Year: 2015","Entity: South America<br />Annual CO2 emissions (zero filled):  1164897792<br />Entity: South America<br />Year: 2016","Entity: South America<br />Annual CO2 emissions (zero filled):  1156733992<br />Entity: South America<br />Year: 2017","Entity: South America<br />Annual CO2 emissions (zero filled):  1091450086<br />Entity: South America<br />Year: 2018","Entity: South America<br />Annual CO2 emissions (zero filled):  1065509648<br />Entity: South America<br />Year: 2019","Entity: South America<br />Annual CO2 emissions (zero filled):   994160327<br />Entity: South America<br />Year: 2020"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(245,100,227,1)","opacity":[0.1,0.19,0.28,0.37,0.46,0.55,0.64,0.73,0.82,0.91,1],"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(245,100,227,1)"}},"hoveron":"points","name":"South America","legendgroup":"South America","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.7550850975509,"r":7.97011207970112,"b":40.381901203819,"l":90.9921129099211},"paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"sans","size":15.9402241594022},"title":{"text":"<b> Annual C02 Emissions by Region and Year After 2010 <\/b>","font":{"color":"rgba(0,0,0,1)","family":"sans","size":18.5969281859693},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Africa","Asia","Europe","North America","Oceania","South America"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Africa","Asia","Europe","North America","Oceania","South America"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":11.9551681195517},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Region","font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-567251320.68852,21616973726.2939],"tickmode":"array","ticktext":["0","5000000000","10000000000","15000000000","20000000000"],"tickvals":[0,5000000000,10000000000,15000000000,20000000000],"categoryorder":"array","categoryarray":["0","5000000000","10000000000","15000000000","20000000000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":11.9551681195517},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":true,"gridcolor":"rgba(190,190,190,1)","gridwidth":0.724555643609193,"zeroline":false,"anchor":"x","title":{"text":"Annual CO2 emissions (zero filled)","font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"rgba(0,0,0,1)","borderwidth":2.06156048675734,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":14.6118721461187}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1e6f2c3a34b5":{"x":{},"y":{},"colour":{},"alpha":{},"type":"scatter"}},"cur_data":"1e6f2c3a34b5","visdat":{"1e6f2c3a34b5":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="by-sector" class="section level3">
+<h3>By Sector</h3>
+<div id="htmlwidget-091005eed8caa1633696" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-091005eed8caa1633696">{"x":{"data":[{"x":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[11416350000,11678430000,11734800000,11624350000,11724470000,11771520000,11861430000,12027730000,12017080000],"text":["year: 2010<br />co2: 11416350000","year: 2011<br />co2: 11678430000","year: 2012<br />co2: 11734800000","year: 2013<br />co2: 11624350000","year: 2014<br />co2: 11724470000","year: 2015<br />co2: 11771520000","year: 2016<br />co2: 11861430000","year: 2017<br />co2: 12027730000","year: 2018<br />co2: 12017080000"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[29428270000,30617920000,31207750000,31661890000,31407500000,30988350000,30840100000,31274840000,32067890000],"text":["year: 2010<br />co2: 29428270000","year: 2011<br />co2: 30617920000","year: 2012<br />co2: 31207750000","year: 2013<br />co2: 31661890000","year: 2014<br />co2: 31407500000","year: 2015<br />co2: 30988350000","year: 2016<br />co2: 30840100000","year: 2017<br />co2: 31274840000","year: 2018<br />co2: 32067890000"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[17154150000,17893610000,18073270000,18254520000,18554920000,18475120000,18400880000,18491410000,18619570000],"text":["year: 2010<br />co2: 17154150000","year: 2011<br />co2: 17893610000","year: 2012<br />co2: 18073270000","year: 2013<br />co2: 18254520000","year: 2014<br />co2: 18554920000","year: 2015<br />co2: 18475120000","year: 2016<br />co2: 18400880000","year: 2017<br />co2: 18491410000","year: 2018<br />co2: 18619570000"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x3","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[17373580000,17283000000,17356690000,17702380000,17646440000,17664250000,17792140000,17944590000,18171440000],"text":["year: 2010<br />co2: 17373580000","year: 2011<br />co2: 17283000000","year: 2012<br />co2: 17356690000","year: 2013<br />co2: 17702380000","year: 2014<br />co2: 17646440000","year: 2015<br />co2: 17664250000","year: 2016<br />co2: 17792140000","year: 2017<br />co2: 17944590000","year: 2018<br />co2: 18171440000"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[16044090000,16297630000,16328040000,16700610000,16994140000,17493540000,17886080000,18358400000,18759140000],"text":["year: 2010<br />co2: 16044090000","year: 2011<br />co2: 16297630000","year: 2012<br />co2: 16328040000","year: 2013<br />co2: 16700610000","year: 2014<br />co2: 16994140000","year: 2015<br />co2: 17493540000","year: 2016<br />co2: 17886080000","year: 2017<br />co2: 18358400000","year: 2018<br />co2: 18759140000"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":53.1938563719386,"r":6.6417600664176,"b":36.5296803652968,"l":81.6936488169365},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352},"title":{"text":"Sector Emissions in Present Years","font":{"color":"rgba(0,0,0,1)","family":"sans","size":17.2685761726858},"x":0,"xref":"paper"},"xaxis":{"domain":[0,0.323449761805926],"automargin":true,"type":"linear","autorange":false,"range":[2009.6,2018.4],"tickmode":"array","ticktext":["2010","2012","2014","2016","2018"],"tickvals":[2010,2012,2014,2016,2018],"categoryorder":"array","categoryarray":["2010","2012","2014","2016","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.3208800332088,"tickwidth":0.603796369674327,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"annotations":[{"text":"Co2 Emissions","x":0.5,"y":0,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis","yshift":-19.9252801992528},{"text":"Sector","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-67.7459526774595},{"text":"Agriculture","x":0.161724880902963,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Electricity and heat","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Manufacturing and construction","x":0.838275119097037,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Other","x":0.161724880902963,"y":0.464023799640238,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"Transport","x":0.5,"y":0.464023799640238,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"yaxis":{"domain":[0.535976200359762,1],"automargin":true,"type":"linear","autorange":false,"range":[10383773000,33100467000],"tickmode":"array","ticktext":["15000000000","20000000000","25000000000","30000000000"],"tickvals":[15000000000,20000000000,25000000000,30000000000],"categoryorder":"array","categoryarray":["15000000000","20000000000","25000000000","30000000000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.3208800332088,"tickwidth":0.603796369674327,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(179,179,179,1)","gridwidth":0.603796369674327,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":0.323449761805926,"y0":0.535976200359762,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":0.323449761805926,"y0":0,"y1":21.2536322125363,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.34321690486074,"x1":0.656783095139259,"y0":0.535976200359762,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.34321690486074,"x1":0.656783095139259,"y0":0,"y1":21.2536322125363,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.676550238194074,"x1":1,"y0":0.535976200359762,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.676550238194074,"x1":1,"y0":0,"y1":21.2536322125363,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":0.323449761805926,"y0":0,"y1":0.464023799640238},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":0.323449761805926,"y0":0,"y1":21.2536322125363,"yanchor":0.464023799640238,"ysizemode":"pixel"},{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.34321690486074,"x1":0.656783095139259,"y0":0,"y1":0.464023799640238},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":0.603796369674327,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.34321690486074,"x1":0.656783095139259,"y0":0,"y1":21.2536322125363,"yanchor":0.464023799640238,"ysizemode":"pixel"}],"xaxis2":{"type":"linear","autorange":false,"range":[2009.6,2018.4],"tickmode":"array","ticktext":["2010","2012","2014","2016","2018"],"tickvals":[2010,2012,2014,2016,2018],"categoryorder":"array","categoryarray":["2010","2012","2014","2016","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.3208800332088,"tickwidth":0.603796369674327,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"domain":[0.34321690486074,0.656783095139259],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[2009.6,2018.4],"tickmode":"array","ticktext":["2010","2012","2014","2016","2018"],"tickvals":[2010,2012,2014,2016,2018],"categoryorder":"array","categoryarray":["2010","2012","2014","2016","2018"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.3208800332088,"tickwidth":0.603796369674327,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"domain":[0.676550238194074,1],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis2":{"type":"linear","autorange":false,"range":[10383773000,33100467000],"tickmode":"array","ticktext":["15000000000","20000000000","25000000000","30000000000"],"tickvals":[15000000000,20000000000,25000000000,30000000000],"categoryorder":"array","categoryarray":["15000000000","20000000000","25000000000","30000000000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.3208800332088,"tickwidth":0.603796369674327,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"sans","size":10.6268161062682},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"domain":[0,0.464023799640238],"gridcolor":"rgba(179,179,179,1)","gridwidth":0.603796369674327,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.71796707229778,"font":{"color":"rgba(0,0,0,1)","family":"sans","size":13.2835201328352}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1e6f56471016":{"x":{},"y":{},"type":"scatter"}},"cur_data":"1e6f56471016","visdat":{"1e6f56471016":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="long-term-trends" class="section level4">
+<h4>Long-term Trends</h4>
+<div id="by-sector-1" class="section level6">
+<h6><em>By Sector</em></h6>
+<p><img src="EmissionsMarkdown_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
